@@ -6,14 +6,14 @@ import os
 
 import yt_dlp
 
-from config_exmp import client_id, client_secret
+from config_exmp import spotify_client_id, spotify_client_secret
 
 
 class workflow():
     def __init__(self):
         self.spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
-            client_id=client_id,
-            client_secret=client_secret,
+            client_id=spotify_client_id,
+            client_secret=spotify_client_secret,
         ))
 
         # Configure yt-dlp options
@@ -37,8 +37,11 @@ class workflow():
                 playlist_id=link, 
                 fields="items.track(name,artists(name))"
             )
-            return [f"{s['track']['name']} by {', '.join(artist['name'] for artist in s['track']['artists'])}" 
-                   for s in songs['items']]
+            return [
+            f"{s['track']['name']} by {', '.join(artist['name'] for artist in s['track']['artists'])}" 
+            for s in songs['items'] 
+            if s.get('track') and s['track'].get('artists')
+        ]
         #ALBUM
         elif state == 2:
             songs = self.spotify.album_tracks(album_id=link)
@@ -81,5 +84,13 @@ class workflow():
                 
         await message.answer("All available songs have been downloaded and sent!")
     
+    ################## APPLE MUSIC API USAGE ################################
+
+
+
+
+
+    #########################################################################
+
 
 

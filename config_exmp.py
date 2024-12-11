@@ -1,4 +1,4 @@
 #CHANGE THIS 
 token = ""
-client_id = ""
-client_secret = ""
+spotify_client_id = ""
+spotify_client_secret = ""
