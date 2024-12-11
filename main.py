@@ -11,7 +11,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.types import ReplyKeyboardRemove
 
 
-from config import token
+from config_exmp import token
 from funcs import workflow
 
 TOKEN = token
